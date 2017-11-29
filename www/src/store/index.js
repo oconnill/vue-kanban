@@ -31,7 +31,33 @@ var store = new vuex.Store({
   },
   actions: {
     //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
-
+    addNewUser({commit, dispatch}, user) {
+      auth.post('register', user)
+        .then(res => {
+          console.log('Response to addNewUser: ', res)
+        })
+        .catch(err=>{
+          commit('handleError', err)
+        })
+    },
+    login({commit, dispatch}, user) {
+      auth.post('login', user)
+        .then(res => {
+          console.log('Response to login: ', res)
+        })
+        .catch(err=>{
+          commit('handleError', err)
+        })
+    },
+    logout({commit, dispatch}) {
+      auth.delete('logout')
+        .then(res => {
+          console.log('Response to logout: ', res)
+        })
+        .catch(err=>{
+          commit('handleError', err)
+        })
+    },
     getBoards({commit, dispatch}) {
       api('boards')
         .then(res => {
