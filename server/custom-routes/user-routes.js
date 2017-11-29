@@ -18,6 +18,7 @@ module.exports = {
     path: '/sharedBoards',
     reqType: 'get',
     method(req, res, next){
+      let action = 'Find User Boards'
       Boards.find({collaborators: { $in: req.session.uid}})
         .then(boards => {
           res.send(handleResponse(action, boards))
