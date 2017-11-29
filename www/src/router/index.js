@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Login from 'components/Login'
 import Boards from 'components/Boards'
 import Board from 'components/Board'
 
@@ -15,6 +16,10 @@ export default new Router({
       path: '/boards/:id',
       name: 'Board',
       component: Board
+    },{
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })
