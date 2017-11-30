@@ -16,19 +16,25 @@
             </form>
         </div>
 
+        <div v-for="task in tasks" class="task">
+            <task :name="task.name" :description="task.description" :taskId="task._id" :boardId="boardId" :listId="listId"></task>
+            <span @click="removeTask(task, boardId)">x</span>
+        </div>
 
-        <ul>
+
+        <!-- <ul>
             <li v-for="task in tasks">
                 <h4>Name: {{task.name}}</h4>
                 <p>Description: {{task.description}}</p>
                 <span @click="removeTask(task, boardId)">x</span>
             </li>
-        </ul>
+        </ul> -->
 
     </div>
 </template>
 
 <script>
+    import task from './Task'
     export default {
         name: 'list',
         props: ["name", "description", "listId", "boardId"],
@@ -57,7 +63,10 @@
             tasks() {
                 return this.$store.state.tasks
             }
-        }
+        },
+        components: {
+      task
+    }
     }
 </script>
 

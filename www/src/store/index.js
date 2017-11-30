@@ -27,9 +27,7 @@ var store = new vuex.Store({
 
     },
     */
-    comments: {
-
-    },
+    comments: [],
     error: {},
     activeUser: {}
   },
@@ -52,6 +50,9 @@ var store = new vuex.Store({
     },
     setTasks(state, data) {
       state.tasks = data
+    },
+    setComments(state, data) {
+      state.comments = data
     },
   },
   actions: {
@@ -201,6 +202,40 @@ var store = new vuex.Store({
       api.delete('tasks/' + payload.task._id)
         .then(res => {
           dispatch('getTasks', { listId: payload.task.listId, boardId: payload.boardId })
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+
+    getComments({ commit, dispatch }, payload) {
+      api(`boards/${payload.boardId}/lists/${payload.listId}/tasks/${payload.taskId}/comments`)
+        .then(res => {
+          console.log('response to getComments: ', res)
+          commit('setComments', res.data.data)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    createComment({ commit, dispatch }, payload) {
+      debugger
+      payload.comment.taskId = payload.taskId
+      console.log('comment: ', payload.comment)
+      api.post('comments/', payload.comment)
+        .then(res => {
+          dispatch('getComments', { listId: payload.listId, boardId: payload.boardId, taskId: payload.taskId })
+          console.log('response to createComment: ', res)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    removeComment({ commit, dispatch }, payload) {
+      api.delete('comments/' + payload.comment._id)
+        .then(res => {
+          dispatch('getComments', { listId: payload.listId, boardId: payload.boardId, taskId: payload.comment.taskId })
+          console.log('response to removeComment: ', res)
         })
         .catch(err => {
           commit('handleError', err)
