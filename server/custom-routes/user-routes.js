@@ -1,4 +1,5 @@
 let Boards = require('../models/board')
+let Lists = require('../models/list')
 
 module.exports = {
   userBoards: {
@@ -26,7 +27,24 @@ module.exports = {
           return next(handleResponse(action, null, error))
         })
     }
-  }
+  },
+
+  // /${model.endpoint}/:id?
+
+
+  boardLists: {
+    path: '/boardlists',
+    reqType: 'get',
+    method(req, res, next){
+      let action = 'Find Board Lists'
+      Lists.find({boardId: req.params.id})
+        .then(lists => {
+          res.send(handleResponse(action, lists))
+        }).catch(error => {
+          return next(handleResponse(action, null, error))
+        })
+    }
+  },
 }
 
 

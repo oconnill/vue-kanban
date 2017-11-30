@@ -24,7 +24,7 @@
 
     <ul>
       <li v-for="board in boards">
-        <router-link :to="'/boards/'+board._id">{{board.name}}</router-link>
+        <router-link :to="'/boards/'+board._id"><span @click="getBoard(board._id)">{{board.name}}</span></router-link>
         <span @click="removeBoard(board)">x</span>
       </li>
     </ul>
@@ -53,6 +53,10 @@
       },
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)
+      },
+      getBoard(id) {
+        console.log('get board in compnent')
+        this.$store.dispatch('getBoard', id)
       },
       logout() {
         this.$store.dispatch('logout')
