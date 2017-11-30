@@ -20,7 +20,7 @@
       <button @click="getLists(board._id)">Get Lists</button>
 
       <div v-for="list in lists" class="list">
-          <list :name="list.name" :description="list.description" :listId="list._id"></list>
+          <list :name="list.name" :description="list.description" :listId="list._id" :boardId="board._id"></list>
           <span @click="removeList(list)">x</span>
       </div>
       

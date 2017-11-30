@@ -3,7 +3,7 @@
         <h1>{{name}}</h1>
         <p>{{description}}</p>
         <div class="add-task-form">
-            <form type="submit" @submit.prevent="createTask(listId)">
+            <form type="submit" @submit.prevent="createTask(listId, boardId)">
                 <div class="form-group">
                     <input name="name" type="text" class="form-control" placeholder="Name" v-model="newTask.name">
                 </div>
@@ -14,32 +14,40 @@
                     <button type="submit" class="btn btn-default navbar-btn">Create Task</button>
                 </div>
             </form>
-
         </div>
+
+
+        <ul>
+            <li v-for="task in tasks">
+                <h4>Name: {{task.name}}</h4>
+                <p>Description: {{task.description}}</p>
+                <span @click="removeTask(task, boardId)">x</span>
+            </li>
+        </ul>
+
     </div>
 </template>
 
 <script>
     export default {
         name: 'list',
-        props: ["name", "description", "listId"],
+        props: ["name", "description", "listId", "boardId"],
         data() {
             return {
-                newTask: {}
+                newTask: {},
             }
         },
         mounted() {
-            this.$store.dispatch('getTasks', listId)
+            this.$store.dispatch('getTasks', { listId: this.listId, boardId: this.boardId })
+            console.log('listId: ', this.listId)
+            console.log('boardId: ', this.boardId)
         },
         methods: {
-            getTasks(id) {
-                this.$store.dispatch('getTasks', id)
+            createTask(listId, boardId) {
+                this.$store.dispatch('createTask', { listId, boardId, task: this.newTask })
             },
-            createTask(id) {
-                this.$store.dispatch('createTask', { id, list: this.newTask })
-            },
-            removeTask(task) {
-                this.$store.dispatch('removeTask', task)
+            removeTask(task, boardId) {
+                this.$store.dispatch('removeTask', { task, boardId })
             },
             logout() {
                 this.$store.dispatch('logout')

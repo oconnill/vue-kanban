@@ -19,11 +19,17 @@ vue.use(vuex)
 var store = new vuex.Store({
   state: {
     boards: [],
-    lists: [],
-    comments: {
-      // list-id : [<task Ids>],
-    },
     activeBoard: {},
+    lists: [],
+    tasks: [],
+    /*
+    tasks: {
+
+    },
+    */
+    comments: {
+
+    },
     error: {},
     activeUser: {}
   },
@@ -43,6 +49,9 @@ var store = new vuex.Store({
     },
     setLists(state, data) {
       state.lists = data
+    },
+    setTasks(state, data) {
+      state.tasks = data
     },
   },
   actions: {
@@ -92,7 +101,7 @@ var store = new vuex.Store({
         })
     },
     getBoards({ commit, dispatch }) {
-      api('userboards', testData) // api('boards')
+      api('userboards') // api('boards')
         .then(res => {
           commit('setBoards', res.data.data)
         })
@@ -132,6 +141,16 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+    getLists({ commit, dispatch }, id) {
+      api(`boards/${id}/lists`)
+        .then(res => {
+          console.log('response to getLists: ', res)
+          commit('setLists', res.data.data)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
     createList({ commit, dispatch }, payload) {
       debugger
       payload.list.boardId = payload.id
@@ -140,16 +159,6 @@ var store = new vuex.Store({
         .then(res => {
           dispatch('getLists', payload.list.boardId)
           console.log('response to createList: ', res)
-        })
-        .catch(err => {
-          commit('handleError', err)
-        })
-    },
-    getLists({ commit, dispatch }, id) {
-      api(`boards/${id}/lists`)
-        .then(res => {
-          console.log('response to getLists: ', res)
-          commit('setLists', res.data.data)
         })
         .catch(err => {
           commit('handleError', err)
@@ -164,6 +173,40 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
+
+    getTasks({ commit, dispatch }, payload) {
+      api(`boards/${payload.boardId}/lists/${payload.listId}/tasks`)
+        .then(res => {
+          console.log('response to getTasks: ', res)
+          commit('setTasks', res.data.data)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    createTask({ commit, dispatch }, payload) {
+      debugger
+      payload.task.listId = payload.listId
+      console.log('task: ', payload.task)
+      api.post('tasks/', payload.task)
+        .then(res => {
+          dispatch('getTasks', { listId: payload.listId, boardId: payload.boardId })
+          console.log('response to createTask: ', res)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    removeTask({ commit, dispatch }, payload) {
+      api.delete('tasks/' + payload.task._id)
+        .then(res => {
+          dispatch('getTasks', { listId: payload.task.listId, boardId: payload.boardId })
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+
     handleError({ commit, dispatch }, err) {
       commit('handleError', err)
     }
