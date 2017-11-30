@@ -19,6 +19,12 @@
 
       <button @click="getLists(board._id)">Get Lists</button>
 
+      <div v-for="list in lists" class="list">
+          <list :name="list.name" :description="list.description" :listId="list._id"></list>
+          <span @click="removeList(list)">x</span>
+      </div>
+      
+      <!--
       <ul>
         <li v-for="list in lists">
           <h4>Name: {{list.name}}</h4>
@@ -26,12 +32,14 @@
           <span @click="removeList(list)">x</span>
         </li>
       </ul>
+    -->
 
     </div>
   </div>
 </template>
 
 <script>
+  import list from './List'
   export default {
     name: 'board',
     data() {
@@ -44,7 +52,7 @@
     },
     methods: {
       createList(id) {
-        this.$store.dispatch('createList', {id, list: this.newList})
+        this.$store.dispatch('createList', { id, list: this.newList })
       },
       getLists(id) {
         this.$store.dispatch('getLists', id)
@@ -63,6 +71,9 @@
       lists() {
         return this.$store.state.lists
       }
+    },
+    components: {
+      list
     }
   }
 </script>

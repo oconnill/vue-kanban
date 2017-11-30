@@ -20,6 +20,9 @@ var store = new vuex.Store({
   state: {
     boards: [],
     lists: [],
+    comments: {
+      // list-id : [<task Ids>],
+    },
     activeBoard: {},
     error: {},
     activeUser: {}
@@ -89,7 +92,6 @@ var store = new vuex.Store({
         })
     },
     getBoards({ commit, dispatch }) {
-      var testData = { test: 'test' }
       api('userboards', testData) // api('boards')
         .then(res => {
           commit('setBoards', res.data.data)
