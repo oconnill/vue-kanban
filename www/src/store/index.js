@@ -18,7 +18,8 @@ vue.use(vuex)
 
 var store = new vuex.Store({
   state: {
-    boards: [{ name: 'This is total rubbish' }],
+    boards: [],
+    lists: [],
     activeBoard: {},
     error: {},
     activeUser: {}
@@ -36,7 +37,10 @@ var store = new vuex.Store({
     setActiveBoard(state, board) {
       state.activeBoard = board
       console.log('activeBoard: ', state.activeBoard)
-    }
+    },
+    setLists(state, data) {
+      state.lists = data
+    },
   },
   actions: {
     //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
@@ -99,6 +103,7 @@ var store = new vuex.Store({
       api('boards/' + id)
         .then(res => {
           console.log('res to get board: ', res)
+          dispatch('getLists', id)
           commit('setActiveBoard', res.data.data)
         })
         .catch(err => {
@@ -131,26 +136,32 @@ var store = new vuex.Store({
       console.log('list: ', payload.list)
       api.post('lists/', payload.list)
         .then(res => {
-          //dispatch('getBoards')
+          dispatch('getLists', payload.list.boardId)
           console.log('response to createList: ', res)
         })
         .catch(err => {
           commit('handleError', err)
         })
     },
-    getListsAtBoard({ commit, dispatch }, id) {
-      console.log('ID: ', id)
-      var data = { id: id }
-      api('boardlists', data) // api('boards')
+    getLists({ commit, dispatch }, id) {
+      api(`boards/${id}/lists`)
         .then(res => {
-          console.log('response to getListsAtBoard: ', res)
-          //commit('setBoards', res.data.data)
+          console.log('response to getLists: ', res)
+          commit('setLists', res.data.data)
         })
         .catch(err => {
           commit('handleError', err)
         })
     },
-
+    removeList({ commit, dispatch }, list) {
+      api.delete('lists/' + list._id)
+        .then(res => {
+          dispatch('getLists', list.boardId)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
     handleError({ commit, dispatch }, err) {
       commit('handleError', err)
     }

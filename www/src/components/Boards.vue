@@ -16,12 +16,6 @@
         </form>
     </div>
 
-
-
-    <!--<button @click="createBoard">Add Board</button>-->
-
-
-
     <ul>
       <li v-for="board in boards">
         <router-link :to="'/boards/'+board._id"><span @click="getBoard(board._id)">{{board.name}}</span></router-link>

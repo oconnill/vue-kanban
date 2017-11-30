@@ -17,7 +17,15 @@
         </div>
       </form>
 
-      <button @click="getListsAtBoard(board._id)">Get Lists</button>
+      <button @click="getLists(board._id)">Get Lists</button>
+
+      <ul>
+        <li v-for="list in lists">
+          <h4>Name: {{list.name}}</h4>
+          <p>Description: {{list.description}}</p>
+          <span @click="removeList(list)">x</span>
+        </li>
+      </ul>
 
     </div>
   </div>
@@ -38,21 +46,22 @@
       createList(id) {
         this.$store.dispatch('createList', {id, list: this.newList})
       },
-      getListsAtBoard(id) {
-        this.$store.dispatch('getListsAtBoard', id)
+      getLists(id) {
+        this.$store.dispatch('getLists', id)
       },
-      /*
-      removeBoard(board) {
-        this.$store.dispatch('removeBoard', board)
+      removeList(list) {
+        this.$store.dispatch('removeList', list)
       },
       logout() {
         this.$store.dispatch('logout')
       },
-      */
     },
     computed: {
       board() {
         return this.$store.state.activeBoard
+      },
+      lists() {
+        return this.$store.state.lists
       }
     }
   }
