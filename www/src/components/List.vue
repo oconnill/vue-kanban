@@ -45,8 +45,8 @@
         },
         mounted() {
             this.$store.dispatch('getTasks', { listId: this.listId, boardId: this.boardId })
-            console.log('listId: ', this.listId)
-            console.log('boardId: ', this.boardId)
+            console.log('tasks ref: ', this.$store.state.tasks[this.listId])
+            console.log('list-Id: ', this.listId)
         },
         methods: {
             createTask(listId, boardId) {
@@ -61,7 +61,7 @@
         },
         computed: {
             tasks() {
-                return this.$store.state.tasks
+                return this.$store.state.tasks[this.listId]
             }
         },
         components: {

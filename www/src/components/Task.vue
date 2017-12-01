@@ -35,8 +35,8 @@
         },
         mounted() {
             this.$store.dispatch('getComments', { taskId: this.taskId, boardId: this.boardId, listId: this.listId })
-            console.log('listId: ', this.listId)
-            // console.log('boardId: ', this.boardId)
+            console.log('listId:', this.listId)
+            //console.log('boardId: ', this.boardId)
         },
         methods: {
             createComment(taskId, listId, boardId) {
@@ -51,7 +51,7 @@
         },
         computed: {
             comments() {
-                return this.$store.state.comments
+                return this.$store.state.comments[this.taskId]
             }
         }
     }

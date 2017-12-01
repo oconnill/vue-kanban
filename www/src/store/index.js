@@ -21,13 +21,18 @@ var store = new vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    tasks: [],
-    /*
+    //tasks: [],
+    //comments: [],
     tasks: {
-
+      /*
+      listId: [task-1, task-2...]
+      */
     },
-    */
-    comments: [],
+    comments: {
+      /*
+      taskId: [comment-1, comment-2...]
+      */
+    },
     error: {},
     activeUser: {}
   },
@@ -48,13 +53,18 @@ var store = new vuex.Store({
     setLists(state, data) {
       state.lists = data
     },
-    setTasks(state, data) {
-      state.tasks = data
+    setTasks(state, payload) {
+      //state.tasks = data
+      vue.set(state.tasks, payload.listId, payload.data)
+
     },
-    setComments(state, data) {
-      state.comments = data
-    },
-  },
+  setComments(state, payload) {
+    //state.comments = data
+    //debugger
+    console.log('payload in setComments: ', payload)
+    vue.set(state.comments, payload.taskId, payload.data)
+  }
+},
   actions: {
     //when writing your auth routes (login, logout, register) be sure to use auth instead of api for the posts
     addNewUser({ commit, dispatch }, user) {
@@ -179,7 +189,7 @@ var store = new vuex.Store({
       api(`boards/${payload.boardId}/lists/${payload.listId}/tasks`)
         .then(res => {
           console.log('response to getTasks: ', res)
-          commit('setTasks', res.data.data)
+          commit('setTasks', { data: res.data.data, listId: payload.listId })
         })
         .catch(err => {
           commit('handleError', err)
@@ -209,10 +219,11 @@ var store = new vuex.Store({
     },
 
     getComments({ commit, dispatch }, payload) {
+      debugger
       api(`boards/${payload.boardId}/lists/${payload.listId}/tasks/${payload.taskId}/comments`)
         .then(res => {
           console.log('response to getComments: ', res)
-          commit('setComments', res.data.data)
+          commit('setComments', { data: res.data.data, taskId: payload.taskId })
         })
         .catch(err => {
           commit('handleError', err)
@@ -234,6 +245,7 @@ var store = new vuex.Store({
     removeComment({ commit, dispatch }, payload) {
       api.delete('comments/' + payload.comment._id)
         .then(res => {
+          console.log(res)
           dispatch('getComments', { listId: payload.listId, boardId: payload.boardId, taskId: payload.comment.taskId })
           console.log('response to removeComment: ', res)
         })
@@ -241,7 +253,6 @@ var store = new vuex.Store({
           commit('handleError', err)
         })
     },
-
     handleError({ commit, dispatch }, err) {
       commit('handleError', err)
     }
