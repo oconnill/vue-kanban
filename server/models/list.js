@@ -1,5 +1,6 @@
 var models = require('../config/constants').models
 let mongoose = require('mongoose')
+var Tasks = require('./task')
 let ObjectId = mongoose.Schema.ObjectId
 
 var schema = new mongoose.Schema({
@@ -8,6 +9,12 @@ var schema = new mongoose.Schema({
 	created: { type: Number, default: Date.now() },
 	// Relations
 	boardId: { type: ObjectId, required: true } // boardId: { type: ObjectId, ref: models.board, required: true }
-}); 
+});
+
+schema.pre('remove', function (next) {
+	console.log('schema.pre in list')
+	Tasks.remove({ listId: this._id }).exec()
+	next()
+});
 
 module.exports = mongoose.model(models.list.name, schema);

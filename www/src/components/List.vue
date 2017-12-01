@@ -19,6 +19,17 @@
         <div v-for="task in tasks" class="task">
             <task :name="task.name" :description="task.description" :taskId="task._id" :boardId="boardId" :listId="listId"></task>
             <span @click="removeTask(task, boardId)">x</span>
+
+            <div class="move-task-form">
+
+                <form @submit.prevent="moveTask(task, listId, boardId)">
+                    <select @change="moveTask(task, listId, boardId)" v-model="destinationList">
+                        <option :value="list" v-for="list in lists">{{list.name}}</option>
+                    </select>
+                </form>
+
+            </div>
+
         </div>
 
 
@@ -41,6 +52,7 @@
         data() {
             return {
                 newTask: {},
+                destinationList: {}
             }
         },
         mounted() {
@@ -55,6 +67,10 @@
             removeTask(task, boardId) {
                 this.$store.dispatch('removeTask', { task, boardId })
             },
+            moveTask(task, listId, boardId) {
+                var newListId = this.destinationList._id
+                this.$store.dispatch('moveTask', { task, listId, boardId, newListId })
+            },
             logout() {
                 this.$store.dispatch('logout')
             },
@@ -62,11 +78,14 @@
         computed: {
             tasks() {
                 return this.$store.state.tasks[this.listId]
+            },
+            lists() {
+                return this.$store.state.lists
             }
         },
         components: {
-      task
-    }
+            task
+        }
     }
 </script>
 

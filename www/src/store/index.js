@@ -163,7 +163,6 @@ var store = new vuex.Store({
         })
     },
     createList({ commit, dispatch }, payload) {
-      debugger
       payload.list.boardId = payload.id
       console.log('list: ', payload.list)
       api.post('lists/', payload.list)
@@ -196,13 +195,27 @@ var store = new vuex.Store({
         })
     },
     createTask({ commit, dispatch }, payload) {
-      debugger
       payload.task.listId = payload.listId
       console.log('task: ', payload.task)
       api.post('tasks/', payload.task)
         .then(res => {
           dispatch('getTasks', { listId: payload.listId, boardId: payload.boardId })
           console.log('response to createTask: ', res)
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    moveTask({ commit, dispatch }, payload) {
+      console.log('old list id: ', payload.task.listId)
+      payload.task.listId = payload.newListId
+      console.log('new list id: ', payload.task.listId)
+      console.log('task to move: ', payload.task)
+      api.put(`tasks/${payload.task._id}`, payload.task)
+        .then(res => {
+          dispatch('getTasks', { listId: payload.listId, boardId: payload.boardId })
+          dispatch('getTasks', { listId: payload.newListId, boardId: payload.boardId })
+          console.log('response to moveTask: ', res)
         })
         .catch(err => {
           commit('handleError', err)

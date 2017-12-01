@@ -13,7 +13,6 @@
             </form>
         </div>
 
-
         <ul>
             <li v-for="comment in comments">
                 <p>{{comment.text}}</p>
