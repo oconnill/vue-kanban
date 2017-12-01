@@ -1,6 +1,6 @@
 <template>
   <div v-if="error.message"> 
-    Error: {{error}}
+    Error: {{error.response.data.stack.error.message}}
   </div>
 </template>
 

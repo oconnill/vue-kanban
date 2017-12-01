@@ -1,8 +1,9 @@
 <template>
-    <div>
+    <div class="container">
 
         <!-- LOGIN FORM -->
-        <div v-if="loginFormActive" class="login-form">
+        <div class="row">
+        <div v-if="loginFormActive" class="login-form col-sm-offset-3 col-sm-6">
             <form type="submit" @submit.prevent="login">
                 <div class="form-group">
                     <input name="email" type="text" class="form-control" placeholder="Email" v-model="returningUser.email">
@@ -18,7 +19,7 @@
         </div>
 
         <!-- SIGNUP FORM -->
-        <div v-else class="signup-form">
+        <div v-else class="signup-form col-sm-offset-3 col-sm-6">
             <form type="submit" @submit.prevent="addNewUser">
                 <div class="form-group">
                     <input name="email" type="text" class="form-control" placeholder="Email" v-model="newUser.email">
@@ -35,7 +36,7 @@
                 <p @click="toggleFormState">Already a user? Log in here.</p>
             </form>
         </div>
-
+    </div>
     </div>
 </template>
 

@@ -1,27 +1,35 @@
 <template>
-  <div>
+  <div class="container">
+
     <button @click="logout">Logout</button>
-
-    <div class="add-board-form">
-        <form type="submit" @submit.prevent="createBoard">
+    <div class="row">
+      <div class="col-xs-offset-3 col-xs-6">
+        <div class="add-board-form">
+          <form type="submit" @submit.prevent="createBoard">
             <div class="form-group">
-                <input name="name" type="text" class="form-control" placeholder="Name" v-model="newBoard.name">
+              <input name="name" type="text" class="form-control" placeholder="Name" v-model="newBoard.name">
             </div>
             <div class="form-group">
-                <input name="description" type="text" class="form-control" placeholder="Description" v-model="newBoard.description">
+              <input name="description" type="text" class="form-control" placeholder="Description" v-model="newBoard.description">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default navbar-btn">Create Board</button>
+              <button type="submit" class="btn btn-default navbar-btn">Create Board</button>
             </div>
-        </form>
+          </form>
+        </div>
+      </div>
     </div>
-
-    <ul>
-      <li v-for="board in boards">
-        <router-link :to="'/boards/'+board._id"><span @click="getBoard(board._id)">{{board.name}}</span></router-link>
-        <span @click="removeBoard(board)">x</span>
-      </li>
-    </ul>
+      <div class="row">
+       
+          <div class="col-xs-12" v-for="board in boards">
+            <router-link :to="'/boards/'+board._id">
+              <h4><span @click="getBoard(board._id)">{{board.name}}</span></h4>
+            </router-link>
+            <span class="glyphicon glyphicon-remove-circle" @click="removeBoard(board)"></span>
+          </div>
+        
+      </div>
+    
   </div>
 </template>
 

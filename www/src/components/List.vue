@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>List: {{name}}</h1>
+        <h1>{{name}}</h1>
         <p>{{description}}</p>
         <div class="add-task-form">
             <form type="submit" @submit.prevent="createTask(listId, boardId)">
@@ -17,8 +17,9 @@
         </div>
 
         <div v-for="task in tasks" class="task">
+                <span class="glyphicon glyphicon-remove-circle pull-right" @click="removeTask(task, boardId)"></span>
             <task :name="task.name" :description="task.description" :taskId="task._id" :boardId="boardId" :listId="listId"></task>
-            <span @click="removeTask(task, boardId)">x</span>
+           
 
             <div class="move-task-form">
 
@@ -92,5 +93,6 @@
 <style scoped>
     .task {
         border: 1px solid #000;
+        padding: 15px ;
     }
 </style>
