@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{name}}</h1>
+        <h1>List: {{name}}</h1>
         <p>{{description}}</p>
         <div class="add-task-form">
             <form type="submit" @submit.prevent="createTask(listId, boardId)">
@@ -90,4 +90,7 @@
 </script>
 
 <style scoped>
+    .task {
+        border: 1px solid #000;
+    }
 </style>

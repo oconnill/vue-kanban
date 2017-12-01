@@ -1,6 +1,7 @@
 <template>
   <div>
     <!--Active Board: {{board}}-->
+    <router-link :to="'/'">Back to All Boards</router-link> 
     <h1>{{board.name}}</h1>
     <p>{{board.description}}</p>
 
@@ -79,4 +80,7 @@
 </script>
 
 <style scoped>
+  .list {
+    border: 1px solid #000;
+  }
 </style>

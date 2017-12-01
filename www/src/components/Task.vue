@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{name}}</h1>
+        <h1>Task: {{name}}</h1>
         <p>{{description}}</p>
         <div class="add-comment-form">
             <form type="submit" @submit.prevent="createComment(taskId, listId, boardId)">

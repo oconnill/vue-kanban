@@ -133,7 +133,7 @@ var store = new vuex.Store({
         })
     },
     createBoard({ commit, dispatch }, board) {
-      debugger
+      //debugger
       api.post('boards/', board)
         .then(res => {
           console.log('res to create board: ', res)
@@ -146,12 +146,25 @@ var store = new vuex.Store({
     removeBoard({ commit, dispatch }, board) {
       api.delete('boards/' + board._id)
         .then(res => {
+          
+          dispatch('getBoards')
+
+        })
+        .catch(err => {
+          commit('handleError', err)
+        })
+    },
+    /*
+    removeBoard({ commit, dispatch }, board) {
+      api.delete('boards/' + board._id)
+        .then(res => {
           dispatch('getBoards')
         })
         .catch(err => {
           commit('handleError', err)
         })
     },
+    */
     getLists({ commit, dispatch }, id) {
       api(`boards/${id}/lists`)
         .then(res => {
@@ -232,7 +245,7 @@ var store = new vuex.Store({
     },
 
     getComments({ commit, dispatch }, payload) {
-      debugger
+      //debugger
       api(`boards/${payload.boardId}/lists/${payload.listId}/tasks/${payload.taskId}/comments`)
         .then(res => {
           console.log('response to getComments: ', res)
@@ -243,7 +256,7 @@ var store = new vuex.Store({
         })
     },
     createComment({ commit, dispatch }, payload) {
-      debugger
+      //debugger
       payload.comment.taskId = payload.taskId
       console.log('comment: ', payload.comment)
       api.post('comments/', payload.comment)
