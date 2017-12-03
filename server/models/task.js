@@ -10,7 +10,7 @@ var schema = new mongoose.Schema({
 	// Relations
 	listId: { type: ObjectId, required: true },
 	// additional Object ID needed for schema.pre('remove') cascading delete:
-	// boardId: { type: ObjectId, required: true }
+	boardId: { type: ObjectId, required: true }
 });
 
 schema.pre('remove', function (next) {

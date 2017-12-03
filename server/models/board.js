@@ -1,6 +1,8 @@
 var models = require('../config/constants').models
 let mongoose = require('mongoose')
 var Lists = require('./list')
+var Tasks = require('./task')
+var Comments = require('./comment')
 let ObjectId = mongoose.Schema.ObjectId
 
 var schema = new mongoose.Schema({
@@ -14,10 +16,8 @@ var schema = new mongoose.Schema({
 schema.pre('remove', function (next) {
   console.log('schema.pre in board')
   Lists.remove({ boardId: this._id }).exec()
-  /*
   Tasks.remove({ boardId: this._id }).exec()
   Comments.remove({ boardId: this._id }).exec()
-  */
   next()
 });
 

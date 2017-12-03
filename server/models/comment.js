@@ -8,8 +8,8 @@ var schema = new mongoose.Schema({
 	// Relations
 	taskId: { type: ObjectId, required: true },
 	// additional Object ID needed for schema.pre('remove') cascading delete:
-	//boardId: { type: ObjectId, required: true },
-	//listId: { type: ObjectId, required: true }
+	boardId: { type: ObjectId, required: true },
+	listId: { type: ObjectId, required: true }
 }); 
 
 module.exports = mongoose.model(models.comment.name, schema);
