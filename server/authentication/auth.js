@@ -14,7 +14,7 @@ router.post('/register', (req, res) => {
       })
     })
     .catch(err => {
-      res.send({ error: err })
+      res.status(401).send({ error: err })
     })
 })
 
@@ -37,7 +37,7 @@ router.post('/login', (req, res) => {
           })
         })
         .catch(err => {
-          res.send({ error: err || 'Invalid Email or Password' })
+          res.status(401).send({ error: err || 'Invalid Email or Password' })
         })
     })
     .catch(err => {
@@ -65,7 +65,7 @@ router.get('/authenticate', (req,res) => {
       data: user
     })
   }).catch(err=>{
-    return res.send({
+    return res.status(401).send({
       error:err
     })
   })

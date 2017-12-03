@@ -209,6 +209,8 @@ var store = new vuex.Store({
     },
     createTask({ commit, dispatch }, payload) {
       payload.task.listId = payload.listId
+      //parent ID needed to make Task schema compatible with cascading delete:
+      //payload.task.boardId = payload.boardId
       console.log('task: ', payload.task)
       api.post('tasks/', payload.task)
         .then(res => {
@@ -258,6 +260,9 @@ var store = new vuex.Store({
     createComment({ commit, dispatch }, payload) {
       //debugger
       payload.comment.taskId = payload.taskId
+      //parent IDs needed to make Comment schema compatible with cascading delete:
+      //payload.comment.listId = payload.listId
+      //payload.comment.boardId = payload.boardId
       console.log('comment: ', payload.comment)
       api.post('comments/', payload.comment)
         .then(res => {

@@ -14,6 +14,10 @@ var schema = new mongoose.Schema({
 schema.pre('remove', function (next) {
   console.log('schema.pre in board')
   Lists.remove({ boardId: this._id }).exec()
+  /*
+  Tasks.remove({ boardId: this._id }).exec()
+  Comments.remove({ boardId: this._id }).exec()
+  */
   next()
 });
 

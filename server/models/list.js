@@ -14,6 +14,7 @@ var schema = new mongoose.Schema({
 schema.pre('remove', function (next) {
 	console.log('schema.pre in list')
 	Tasks.remove({ listId: this._id }).exec()
+	//Comments.remove({ listId: this._id }).exec()
 	next()
 });
 
