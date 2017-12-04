@@ -21,7 +21,7 @@
       </div>
     </div>
     </div>
-    <div class="row">
+    <div class="row lists-row">
 
       <div class="col-xs-4 list" v-for="list in lists">
         <span class="glyphicon glyphicon-remove-circle pull-right" @click="removeList(list)"></span>
@@ -81,5 +81,8 @@
     padding: 15px;
     background: #27592A;
     border-radius: 6px;
+  }
+  .lists-row {
+    margin-bottom: 30px;
   }
 </style>

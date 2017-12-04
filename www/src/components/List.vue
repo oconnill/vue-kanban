@@ -29,7 +29,7 @@
 
                 <form @submit.prevent="moveTask(task, listId, boardId)">
                     <select @change="moveTask(task, listId, boardId)" v-model="destinationList" required>
-                        <option value="" selected>Move To:</option>
+                        <option value="" selected disabled>Move To:</option>
                         <option :value="list" v-for="list in lists">{{list.name}}</option>
                     </select>
                 </form>
@@ -37,15 +37,6 @@
             </div>
 
         </div>
-
-
-        <!-- <ul>
-            <li v-for="task in tasks">
-                <h4>Name: {{task.name}}</h4>
-                <p>Description: {{task.description}}</p>
-                <span @click="removeTask(task, boardId)">x</span>
-            </li>
-        </ul> -->
 
     </div>
 </template>
@@ -107,46 +98,5 @@
     .task select {
         color: #404040;
         margin-top: 10px;
-    }
-
-    .flex {
-        display: flex;
-    }
-
-    .flex.wrap {
-        flex-wrap: wrap;
-    }
-
-    .flex.v-center {
-        align-items: center;
-    }
-
-    .flex.v-bottom {
-        align-items: flex-end;
-    }
-
-    .flex.v-top {
-        align-items: flex-start;
-    }
-
-    .flex.h-center {
-        justify-content: center;
-    }
-
-    .flex.h-left {
-        justify-content: left;
-    }
-
-    .flex.h-right {
-        justify-content: right;
-    }
-
-    .flex.h-space-between {
-        justify-content: space-between;
-    }
-
-    .flex.text-wrap {
-        flex-wrap: wrap;
-        word-break: break-all;
     }
 </style>

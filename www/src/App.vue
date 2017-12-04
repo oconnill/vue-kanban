@@ -3,8 +3,8 @@
     <div class="text-right logout-bar" v-if="activeUser.hasOwnProperty('name')">
       <button @click="logout" class="btn btn-default">Logout</button>
     </div>
-    <h1>KANBAN</h1>
-    <error></error>
+    <h1 class="main-title">KANBAN</h1>
+    <!--<error></error>-->
     <router-view></router-view>
   </div>
 </template>
@@ -35,6 +35,10 @@
 <style>
   body {
     background: #334034;
+    /*
+    background: linear-gradient(rgba(51, 64, 52, 0.95), rgba(51, 64, 52, 0)), url("./assets/wood-texture.jpg") center no-repeat;
+    background-size: cover;
+    */
     font-family: 'Open Sans', sans-serif;
   }
 
@@ -45,7 +49,48 @@
     text-align: center;
     color: #fff;
     margin-top: 60px;
-    background: #334034;
+    /*background: #334034;*/
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .flex.wrap {
+    flex-wrap: wrap;
+  }
+
+  .flex.v-center {
+    align-items: center;
+  }
+
+  .flex.v-bottom {
+    align-items: flex-end;
+  }
+
+  .flex.v-top {
+    align-items: flex-start;
+  }
+
+  .flex.h-center {
+    justify-content: center;
+  }
+
+  .flex.h-left {
+    justify-content: left;
+  }
+
+  .flex.h-right {
+    justify-content: right;
+  }
+
+  .flex.h-space-between {
+    justify-content: space-between;
+  }
+
+  .flex.text-wrap {
+    flex-wrap: wrap;
+    word-break: break-all;
   }
 
   h1,
@@ -57,6 +102,7 @@
   .logout-bar {
     padding-right: 20px;
   }
+
   .linked-text {
     text-decoration: none;
     color: #ACD9AF;
@@ -65,5 +111,10 @@
   .linked-text:hover {
     text-decoration: none;
     color: #6F8C71;
+  }
+
+  .main-title {
+    font-size: 4em;
+    font-weight: bold;
   }
 </style>

@@ -33,11 +33,13 @@
 
       </div>
       <div class="col-xs-6">
-          <h2>Preview Board</h2>
+        <h2>Preview Board</h2>
         <div v-if="activeBoard.hasOwnProperty('name')">
           <h3>{{activeBoard.name}}</h3>
           <p>Lists: {{lists.length}}</p>
-          <p>Created: {{new Date(Number(activeBoard.created)).getMonth()}}/{{new Date(Number(activeBoard.created)).getDate()}}/{{new Date(Number(activeBoard.created)).getFullYear()}}</p>
+          <p>Created: {{new Date(Number(activeBoard.created)).getMonth() + 1}}/{{new Date(Number(activeBoard.created)).getDate()}}/{{new
+            Date(Number(activeBoard.created)).getFullYear()}}
+          </p>
         </div>
         <div v-else>
           <p>Mouse over a board to preview.</p>
