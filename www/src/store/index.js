@@ -21,8 +21,6 @@ var store = new vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    //tasks: [],
-    //comments: [],
     tasks: {
       /*
       listId: [task-1, task-2...]
@@ -54,13 +52,10 @@ var store = new vuex.Store({
       state.lists = data
     },
     setTasks(state, payload) {
-      //state.tasks = data
       vue.set(state.tasks, payload.listId, payload.data)
 
     },
   setComments(state, payload) {
-    //state.comments = data
-    //debugger
     console.log('payload in setComments: ', payload)
     vue.set(state.comments, payload.taskId, payload.data)
   }
@@ -82,8 +77,10 @@ var store = new vuex.Store({
       auth.post('login', user)
         .then(res => {
           console.log('Response to login: ', res)
-          commit('setActiveUser', res.data.data)
-          router.push({ name: "Boards" })
+          if(!res.data.error) {
+            commit('setActiveUser', res.data.data)
+            router.push({ name: "Boards" })
+          }
         })
         .catch(err => {
           commit('handleError', err)
@@ -93,6 +90,8 @@ var store = new vuex.Store({
       auth.delete('logout')
         .then(res => {
           console.log('Response to logout: ', res)
+          commit('setActiveUser', {})
+          commit('setActiveBoard', {})
           router.push({ name: "Login" })
         })
         .catch(err => {

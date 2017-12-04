@@ -1,7 +1,11 @@
 <template>
     <div>
-        <h1>{{name}}</h1>
-        <p>{{description}}</p>
+        <div class="flex text-wrap">
+            <h1>{{name}}</h1>
+        </div>
+        <div class="flex text-wrap">
+            <p>{{description}}</p>
+        </div>
         <div class="add-task-form">
             <form type="submit" @submit.prevent="createTask(listId, boardId)">
                 <div class="form-group">
@@ -10,21 +14,22 @@
                 <div class="form-group">
                     <input name="description" type="text" class="form-control" placeholder="Description" v-model="newTask.description">
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default navbar-btn">Create Task</button>
+                <div class="form-group text-left">
+                    <button type="submit" class="btn btn-success navbar-btn">+ Task</button>
                 </div>
             </form>
         </div>
 
         <div v-for="task in tasks" class="task">
-                <span class="glyphicon glyphicon-remove-circle pull-right" @click="removeTask(task, boardId)"></span>
+            <span class="glyphicon glyphicon-remove-circle pull-right" @click="removeTask(task, boardId)"></span>
             <task :name="task.name" :description="task.description" :taskId="task._id" :boardId="boardId" :listId="listId"></task>
-           
+
 
             <div class="move-task-form">
 
                 <form @submit.prevent="moveTask(task, listId, boardId)">
-                    <select @change="moveTask(task, listId, boardId)" v-model="destinationList">
+                    <select @change="moveTask(task, listId, boardId)" v-model="destinationList" required>
+                        <option value="" selected>Move To:</option>
                         <option :value="list" v-for="list in lists">{{list.name}}</option>
                     </select>
                 </form>
@@ -64,6 +69,7 @@
         methods: {
             createTask(listId, boardId) {
                 this.$store.dispatch('createTask', { listId, boardId, task: this.newTask })
+                this.newTask = {};
             },
             removeTask(task, boardId) {
                 this.$store.dispatch('removeTask', { task, boardId })
@@ -74,7 +80,7 @@
             },
             logout() {
                 this.$store.dispatch('logout')
-            },
+            }
         },
         computed: {
             tasks() {
@@ -92,7 +98,55 @@
 
 <style scoped>
     .task {
-        border: 1px solid #000;
-        padding: 15px ;
+        border: 2px solid #27592A;
+        padding: 15px;
+        background: #288C2E;
+        border-radius: 6px;
+    }
+
+    .task select {
+        color: #404040;
+        margin-top: 10px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex.wrap {
+        flex-wrap: wrap;
+    }
+
+    .flex.v-center {
+        align-items: center;
+    }
+
+    .flex.v-bottom {
+        align-items: flex-end;
+    }
+
+    .flex.v-top {
+        align-items: flex-start;
+    }
+
+    .flex.h-center {
+        justify-content: center;
+    }
+
+    .flex.h-left {
+        justify-content: left;
+    }
+
+    .flex.h-right {
+        justify-content: right;
+    }
+
+    .flex.h-space-between {
+        justify-content: space-between;
+    }
+
+    .flex.text-wrap {
+        flex-wrap: wrap;
+        word-break: break-all;
     }
 </style>

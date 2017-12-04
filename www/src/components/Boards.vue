@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-
-    <button @click="logout">Logout</button>
     <div class="row">
       <div class="col-xs-offset-3 col-xs-6">
         <div class="add-board-form">
@@ -19,17 +17,35 @@
         </div>
       </div>
     </div>
-      <div class="row">
-       
+    <div class="row">
+      <div class="col-xs-6">
+        <h2>My Boards</h2>
+        <div class="row">
           <div class="col-xs-12" v-for="board in boards">
-            <router-link :to="'/boards/'+board._id">
-              <h4><span @click="getBoard(board._id)">{{board.name}}</span></h4>
+            <router-link :to="'/boards/'+board._id" class="linked-text">
+              <h4>
+                <span v-on:mouseover="getBoard(board._id)" @click="getBoard(board._id)">{{board.name}}</span>
+              </h4>
             </router-link>
             <span class="glyphicon glyphicon-remove-circle" @click="removeBoard(board)"></span>
           </div>
-        
+        </div>
+
       </div>
-    
+      <div class="col-xs-6">
+          <h2>Preview Board</h2>
+        <div v-if="activeBoard.hasOwnProperty('name')">
+          <h3>{{activeBoard.name}}</h3>
+          <p>Lists: {{lists.length}}</p>
+          <p>Created: {{new Date(Number(activeBoard.created)).getMonth()}}/{{new Date(Number(activeBoard.created)).getDate()}}/{{new Date(Number(activeBoard.created)).getFullYear()}}</p>
+        </div>
+        <div v-else>
+          <p>Mouse over a board to preview.</p>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -47,11 +63,18 @@
     computed: {
       boards() {
         return this.$store.state.boards
-      }
+      },
+      activeBoard() {
+        return this.$store.state.activeBoard
+      },
+      lists() {
+        return this.$store.state.lists
+      },
     },
     methods: {
       createBoard() {
         this.$store.dispatch('createBoard', this.newBoard)
+        this.newBoard = {};
       },
       removeBoard(board) {
         this.$store.dispatch('removeBoard', board)
@@ -68,4 +91,7 @@
 </script>
 
 <style scoped>
+  h4 {
+    font-size: 1.8em;
+  }
 </style>

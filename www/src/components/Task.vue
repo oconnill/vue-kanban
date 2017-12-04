@@ -1,14 +1,18 @@
 <template>
     <div>
-        <h1>{{name}}</h1>
-        <p>{{description}}</p>
+        <div class="flex text-wrap">
+            <h1 class="text-left">{{name}}</h1>
+        </div>
+        <div class="flex text-wrap">
+            <p class="text-left">{{description}}</p>
+        </div>
         <div class="add-comment-form">
             <form type="submit" @submit.prevent="createComment(taskId, listId, boardId)">
                 <div class="form-group">
                     <input name="name" type="text" class="form-control" placeholder="Comment" v-model="newComment.text">
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default navbar-btn">Create Comment</button>
+                <div class="form-group text-left">
+                    <button type="submit" class="btn btn-success navbar-btn">+ Comment</button>
                 </div>
             </form>
         </div>
@@ -44,6 +48,7 @@
         methods: {
             createComment(taskId, listId, boardId) {
                 this.$store.dispatch('createComment', { taskId, listId, boardId, comment: this.newComment })
+                this.newComment = {}
             },
             removeComment(comment, boardId, listId) {
                 this.$store.dispatch('removeComment', { comment, boardId, listId })
@@ -62,46 +67,59 @@
 
 <style scoped>
     .comment {
-        padding: 0px 15px;
+        padding: 15px;
+        border: 1px solid #288C2E;
+        background: #6F8C71;
+        border-radius: 6px;
     }
+
     .flex {
-   display: flex;
-}
+        display: flex;
+    }
 
-.flex.wrap {
-   flex-wrap: wrap;
-}
+    .flex.wrap {
+        flex-wrap: wrap;
+    }
 
-.flex.v-center {
-   align-items: center;
-}
+    .flex.v-center {
+        align-items: center;
+    }
 
-.flex.v-bottom {
-   align-items: flex-end;
-}
+    .flex.v-bottom {
+        align-items: flex-end;
+    }
 
-.flex.v-top {
-   align-items: flex-start;
-}
+    .flex.v-top {
+        align-items: flex-start;
+    }
 
-.flex.h-center {
-   justify-content: center;
-}
+    .flex.h-center {
+        justify-content: center;
+    }
 
-.flex.h-left {
-   justify-content: left;
-}
+    .flex.h-left {
+        justify-content: left;
+    }
 
-.flex.h-right {
-   justify-content: right;
-}
+    .flex.h-right {
+        justify-content: right;
+    }
 
-.flex.h-space-between {
-   justify-content: space-between;
-}
+    .flex.h-space-between {
+        justify-content: space-between;
+    }
 
-.flex.text-wrap {
-   flex-wrap: wrap;
-   word-break: break-all;
-}
+    .flex.text-wrap {
+        flex-wrap: wrap;
+        word-break: break-all;
+    }
+
+    .linked-text {
+        text-decoration: none;
+        color: #ACD9AF;
+    }
+
+    .linked-text:hover {
+        color: #6F8C71;
+    }
 </style>
