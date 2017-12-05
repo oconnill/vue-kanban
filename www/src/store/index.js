@@ -3,14 +3,16 @@ import vue from 'vue'
 import vuex from 'vuex'
 import router from 'router'
 
+var mainUrl = window.location.indexOf('localhost') > -1 ? "//localhost:3000" : ""
+
 let api = axios.create({
-  baseURL: '/api/',
+  baseURL: baseUrl + '/api/',
   timeout: 2000,
   withCredentials: true
 })
 
 let auth = axios.create({
-  baseURL: '/',
+  baseURL: baseUrl + '/',
   timeout: 2000,
   withCredentials: true
 })
