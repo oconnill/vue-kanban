@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-
+        <error></error>
         <!-- LOGIN FORM -->
         <div class="row">
             <div v-if="loginFormActive" class="login-form col-sm-offset-3 col-sm-6">
@@ -41,8 +41,12 @@
 </template>
 
 <script>
+    import Error from './Error'
     export default {
         name: 'login',
+        components: {
+            Error
+        },
         data() {
             return {
                 loginFormActive: true,
@@ -61,10 +65,7 @@
             login() {
                 this.$store.dispatch('login', this.returningUser)
                 this.returningUser = {}
-            },
-            logout() {
-                this.$store.dispatch('logout')
-            },
+            }
         }
     }
 </script>
@@ -74,6 +75,7 @@
         color: inherit;
         text-decoration: none;
     }
+
     .toggle-link:hover {
         color: #cccccc;
         cursor: pointer;

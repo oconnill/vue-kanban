@@ -20,8 +20,8 @@
     <div class="row">
       <div class="col-xs-6">
         <h2>My Boards</h2>
-        <div class="row">
-          <div class="col-xs-12" v-for="board in boards">
+        <div class="row board-wrapper">
+          <div class="col-xs-12 board-link" v-for="board in boards">
             <router-link :to="'/boards/'+board._id" class="linked-text">
               <h4>
                 <span v-on:mouseover="getBoard(board._id)" @click="getBoard(board._id)">{{board.name}}</span>
@@ -34,12 +34,12 @@
       </div>
       <div class="col-xs-6">
         <h2>Preview Board</h2>
-        <div v-if="activeBoard.hasOwnProperty('name')">
+        <div class="board-wrapper" v-if="activeBoard.hasOwnProperty('name')">
           <h3>{{activeBoard.name}}</h3>
-          <p>Lists: {{lists.length}}</p>
-          <p>Created: {{new Date(Number(activeBoard.created)).getMonth() + 1}}/{{new Date(Number(activeBoard.created)).getDate()}}/{{new
+          <h5>Lists: {{lists.length}}</h5>
+          <h5>Created: {{new Date(Number(activeBoard.created)).getMonth() + 1}}/{{new Date(Number(activeBoard.created)).getDate()}}/{{new
             Date(Number(activeBoard.created)).getFullYear()}}
-          </p>
+          </h5>
         </div>
         <div v-else>
           <p>Mouse over a board to preview.</p>
@@ -84,10 +84,7 @@
       getBoard(id) {
         console.log('get board in compnent')
         this.$store.dispatch('getBoard', id)
-      },
-      logout() {
-        this.$store.dispatch('logout')
-      },
+      }
     }
   }
 </script>
@@ -95,5 +92,13 @@
 <style scoped>
   h4 {
     font-size: 1.8em;
+  }
+  .board-wrapper {
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 15px 0;
+  }
+  .board-link {
+    margin: 20px 0;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div droppable="true" v-on:drop.capture="dragTask" ondragover="event.preventDefault()">
         <div class="flex text-wrap">
             <h1>{{name}}</h1>
         </div>
@@ -19,23 +19,24 @@
                 </div>
             </form>
         </div>
+        <div class="task-container" droppable="true" v-on:drop.capture="dragTask" ondragover="event.preventDefault()">
+            <div v-for="task in tasks" class="task">
+                <span class="glyphicon glyphicon-remove-circle pull-right" @click="removeTask(task, boardId)"></span>
+                <task :name="task.name" :description="task.description" :task="task" :taskId="task._id" :boardId="boardId" :listId="listId"></task>
+                <!-- TODO: remove redundant props from task component -->
 
-        <div v-for="task in tasks" class="task">
-            <span class="glyphicon glyphicon-remove-circle pull-right" @click="removeTask(task, boardId)"></span>
-            <task :name="task.name" :description="task.description" :taskId="task._id" :boardId="boardId" :listId="listId"></task>
+                <div class="move-task-form">
 
+                    <form @submit.prevent="moveTask(task, listId, boardId)">
+                        <select @change="moveTask(task, listId, boardId)" v-model="destinationList" required>
+                            <option value="" selected disabled>Move To:</option>
+                            <option :value="list" v-for="list in lists">{{list.name}}</option>
+                        </select>
+                    </form>
 
-            <div class="move-task-form">
-
-                <form @submit.prevent="moveTask(task, listId, boardId)">
-                    <select @change="moveTask(task, listId, boardId)" v-model="destinationList" required>
-                        <option value="" selected disabled>Move To:</option>
-                        <option :value="list" v-for="list in lists">{{list.name}}</option>
-                    </select>
-                </form>
+                </div>
 
             </div>
-
         </div>
 
     </div>
@@ -69,8 +70,17 @@
                 var newListId = this.destinationList._id
                 this.$store.dispatch('moveTask', { task, listId, boardId, newListId })
             },
-            logout() {
-                this.$store.dispatch('logout')
+            dragTask(event) {
+                var taskToDrop = JSON.parse(event.dataTransfer.getData('text/javascript'))
+                console.log('task to drop: ', taskToDrop)
+                var listId = taskToDrop.listId
+                console.log('old list id: ', listId)
+                var newListId = this.listId
+                console.log('new list id: ', newListId)
+                var boardId = this.boardId
+                console.log('board id: ', boardId)
+                console.log('drop event: ', event)
+                this.$store.dispatch('moveTask', { task: taskToDrop, listId, boardId, newListId })
             }
         },
         computed: {
@@ -94,9 +104,11 @@
         background: #288C2E;
         border-radius: 6px;
     }
-
     .task select {
         color: #404040;
         margin-top: 10px;
+    }
+    .task-container {
+        min-height: 200px;
     }
 </style>

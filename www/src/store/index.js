@@ -82,6 +82,8 @@ var store = new vuex.Store({
           if(!res.data.error) {
             commit('setActiveUser', res.data.data)
             router.push({ name: "Boards" })
+          } else {
+            commit('handleError', res.data)
           }
         })
         .catch(err => {
@@ -109,7 +111,7 @@ var store = new vuex.Store({
         })
         .catch(err => {
           router.push({ name: "Login" })
-          commit('handleError', err)
+          //commit('handleError', err)
         })
     },
     getBoards({ commit, dispatch }) {

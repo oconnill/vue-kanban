@@ -3,23 +3,26 @@
     <div class="row">
       <!--Active Board: {{board}}-->
       <div class="col-xs-offset-3 col-xs-6">
-      <router-link class="linked-text" :to="'/'"><p>Back to All Boards</p></router-link>
-      <h1>{{board.name}}</h1>
-      <p>{{board.description}}</p>
-      <div class="add-list-form">
-        <form type="submit" @submit.prevent="createList(board._id)">
-          <div class="form-group">
-            <input name="name" type="text" class="form-control" placeholder="Name" v-model="newList.name">
-          </div>
-          <div class="form-group">
-            <input name="description" type="text" class="form-control" placeholder="Description" v-model="newList.description">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-success navbar-btn">+ List</button>
-          </div>
-        </form>
+        <router-link class="linked-text" :to="'/'">
+          <p>Back to All Boards</p>
+        </router-link>
+        <h1>{{board.name}}</h1>
+        <p>{{board.description}}</p>
+        <div class="add-list-form">
+          <form type="submit" @submit.prevent="createList(board._id)">
+            <div class="form-group">
+              <input name="name" type="text" class="form-control" placeholder="Name" v-model="newList.name">
+            </div>
+            <div class="form-group">
+              <input name="description" type="text" class="form-control" placeholder="Description" v-model="newList.description">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-success navbar-btn">+ List</button>
+            </div>
+          </form>
+          <h4>Click and drag to move tasks between lists.</h4>
+        </div>
       </div>
-    </div>
     </div>
     <div class="row lists-row">
 
@@ -54,10 +57,7 @@
       },
       removeList(list) {
         this.$store.dispatch('removeList', list)
-      },
-      logout() {
-        this.$store.dispatch('logout')
-      },
+      }
     },
     computed: {
       board() {
@@ -82,6 +82,7 @@
     background: #27592A;
     border-radius: 6px;
   }
+
   .lists-row {
     margin-bottom: 30px;
   }

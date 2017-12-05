@@ -1,21 +1,18 @@
 <template>
   <div id="app">
     <div class="text-right logout-bar" v-if="activeUser.hasOwnProperty('name')">
+      <h4>Hello, {{activeUser.name}}</h4>
       <button @click="logout" class="btn btn-default">Logout</button>
     </div>
     <h1 class="main-title">KANBAN</h1>
-    <!--<error></error>-->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Error from './components/Error'
+  
   export default {
     name: 'app',
-    components: {
-      Error
-    },
     mounted() {
       this.$store.dispatch('authenticate')
     },
@@ -116,5 +113,6 @@
   .main-title {
     font-size: 4em;
     font-weight: bold;
+    letter-spacing: 0.2em;
   }
 </style>

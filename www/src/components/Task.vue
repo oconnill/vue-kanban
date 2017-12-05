@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div draggable="true" v-on:dragstart.capture="dragMode">
         <div class="flex text-wrap">
             <h1 class="text-left">{{name}}</h1>
         </div>
@@ -34,7 +34,7 @@
 <script>
     export default {
         name: 'comment',
-        props: ["name", "description", "taskId", "boardId", "listId"],
+        props: ["name", "description", "taskId", "boardId", "listId", "task"], //TODO: Clean up redundant props
         data() {
             return {
                 newComment: {},
@@ -53,9 +53,12 @@
             removeComment(comment, boardId, listId) {
                 this.$store.dispatch('removeComment', { comment, boardId, listId })
             },
-            logout() {
-                this.$store.dispatch('logout')
-            },
+            dragMode(event) {
+                console.log('Drag Event: ', event)
+                console.log('task to drag: ', this.task)
+                event.dataTransfer.setData('text/javascript', JSON.stringify(this.task))
+                console.log('drag event 2: ', event)
+            }
         },
         computed: {
             comments() {
@@ -71,47 +74,6 @@
         border: 1px solid #288C2E;
         background: #6F8C71;
         border-radius: 6px;
-    }
-
-    .flex {
-        display: flex;
-    }
-
-    .flex.wrap {
-        flex-wrap: wrap;
-    }
-
-    .flex.v-center {
-        align-items: center;
-    }
-
-    .flex.v-bottom {
-        align-items: flex-end;
-    }
-
-    .flex.v-top {
-        align-items: flex-start;
-    }
-
-    .flex.h-center {
-        justify-content: center;
-    }
-
-    .flex.h-left {
-        justify-content: left;
-    }
-
-    .flex.h-right {
-        justify-content: right;
-    }
-
-    .flex.h-space-between {
-        justify-content: space-between;
-    }
-
-    .flex.text-wrap {
-        flex-wrap: wrap;
-        word-break: break-all;
     }
 
     .linked-text {
