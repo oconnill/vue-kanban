@@ -76,27 +76,8 @@ h3 {
 .main-title {
   font-size: 4em;
   font-weight: bold;
+  letter-spacing: 0.2em;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .toggle-link[data-v-60b1dd3e] {
     color: inherit;
@@ -107,8 +88,35 @@ h3 {
     cursor: pointer;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 h4[data-v-0c6e3af6] {
   font-size: 1.8em;
+}
+.board-wrapper[data-v-0c6e3af6] {
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 15px 0;
+}
+.board-link[data-v-0c6e3af6] {
+  margin: 20px 0;
 }
 
 .list[data-v-5337eb44] {
@@ -133,53 +141,15 @@ h4[data-v-0c6e3af6] {
     color: #404040;
     margin-top: 10px;
 }
+.task-container[data-v-32eec754] {
+    min-height: 200px;
+}
 
 .comment[data-v-7de155bd] {
     padding: 15px;
     border: 1px solid #288C2E;
     background: #6F8C71;
     border-radius: 6px;
-}
-.flex[data-v-7de155bd] {
-    display: -ms-flexbox;
-    display: flex;
-}
-.flex.wrap[data-v-7de155bd] {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-}
-.flex.v-center[data-v-7de155bd] {
-    -ms-flex-align: center;
-        align-items: center;
-}
-.flex.v-bottom[data-v-7de155bd] {
-    -ms-flex-align: end;
-        align-items: flex-end;
-}
-.flex.v-top[data-v-7de155bd] {
-    -ms-flex-align: start;
-        align-items: flex-start;
-}
-.flex.h-center[data-v-7de155bd] {
-    -ms-flex-pack: center;
-        justify-content: center;
-}
-.flex.h-left[data-v-7de155bd] {
-    -ms-flex-pack: left;
-        justify-content: left;
-}
-.flex.h-right[data-v-7de155bd] {
-    -ms-flex-pack: right;
-        justify-content: right;
-}
-.flex.h-space-between[data-v-7de155bd] {
-    -ms-flex-pack: justify;
-        justify-content: space-between;
-}
-.flex.text-wrap[data-v-7de155bd] {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    word-break: break-all;
 }
 .linked-text[data-v-7de155bd] {
     text-decoration: none;
@@ -189,4 +159,4 @@ h4[data-v-0c6e3af6] {
     color: #6F8C71;
 }
 
-/*# sourceMappingURL=app.e28d46ef7189302b995fcb79fe6c04c9.css.map*/
+/*# sourceMappingURL=app.17ea69ed4bc12aa052bcae6576ae240c.css.map*/
