@@ -27,7 +27,7 @@
                 <span v-on:mouseover="getBoard(board._id)" @click="getBoard(board._id)">{{board.name}}</span>
               </h4>
             </router-link>
-            <span class="glyphicon glyphicon-remove-circle" @click="removeBoard(board)"></span>
+            <span class="glyphicon glyphicon-remove" @click="removeBoard(board)"></span>
           </div>
         </div>
 
@@ -92,11 +92,11 @@
 <style scoped>
   h4 {
     font-size: 1.8em;
+    color: #D66D40
   }
   .board-wrapper {
-    border: 2px solid #fff;
-    border-radius: 5px;
-    padding: 15px 0;
+font-family: 'Roboto', sans-serif;
+color: #CCD1B3;
   }
   .board-link {
     margin: 20px 0;

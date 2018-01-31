@@ -11,13 +11,13 @@
         <div class="add-list-form">
           <form type="submit" @submit.prevent="createList(board._id)">
             <div class="form-group">
-              <input name="name" type="text" class="form-control" placeholder="Name" v-model="newList.name">
+              <input name="name" type="text" class="form-control" placeholder="List Name" v-model="newList.name">
             </div>
             <div class="form-group">
               <input name="description" type="text" class="form-control" placeholder="Description" v-model="newList.description">
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-success navbar-btn">+ List</button>
+              <button type="submit" class="btn btn-secondary navbar-btn">+</button>
             </div>
           </form>
           <h4>Click and drag to move tasks between lists.</h4>
@@ -75,15 +75,23 @@
 
 <style scoped>
   .list {
-    border: 2px solid #334034;
+    border: 2px solid #283331;
     height: 600px;
     overflow-y: scroll;
     padding: 15px;
-    background: #27592A;
+    background: #6F8C71;
     border-radius: 6px;
   }
 
   .lists-row {
     margin-bottom: 30px;
+  }
+
+  .navbar-btn{
+    color: #27592A;
+  }
+
+  h4{
+    font-family: Roboto;
   }
 </style>

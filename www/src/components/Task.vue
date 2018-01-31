@@ -12,7 +12,7 @@
                     <input name="name" type="text" class="form-control" placeholder="Comment" v-model="newComment.text">
                 </div>
                 <div class="form-group text-left">
-                    <button type="submit" class="btn btn-success navbar-btn">+ Comment</button>
+                    <button type="submit" class="btn navbar-btn">+</button>
                 </div>
             </form>
         </div>
@@ -71,7 +71,7 @@
 <style scoped>
     .comment {
         padding: 15px;
-        border: 1px solid #288C2E;
+        border: 1px solid #F4F4E6;
         background: #6F8C71;
         border-radius: 6px;
     }
@@ -83,5 +83,9 @@
 
     .linked-text:hover {
         color: #6F8C71;
+    }
+
+    h1{
+        color:#6F8C71
     }
 </style>

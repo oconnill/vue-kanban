@@ -9,13 +9,13 @@
         <div class="add-task-form">
             <form type="submit" @submit.prevent="createTask(listId, boardId)">
                 <div class="form-group">
-                    <input name="name" type="text" class="form-control" placeholder="Name" v-model="newTask.name">
+                    <input name="name" type="text" class="form-control" placeholder="Task Name" v-model="newTask.name">
                 </div>
                 <div class="form-group">
                     <input name="description" type="text" class="form-control" placeholder="Description" v-model="newTask.description">
                 </div>
                 <div class="form-group text-left">
-                    <button type="submit" class="btn btn-success navbar-btn">+ Task</button>
+                    <button type="submit" class="btn btn-secondary navbar-btn">+</button>
                 </div>
             </form>
         </div>
@@ -99,10 +99,10 @@
 
 <style scoped>
     .task {
-        border: 2px solid #27592A;
         padding: 15px;
-        background: #288C2E;
+        background: #F4F4E6;
         border-radius: 6px;
+        border: 1px solid #6F8C71;
     }
     .task select {
         color: #404040;

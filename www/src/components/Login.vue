@@ -1,8 +1,10 @@
 <template>
     <div class="container">
-        <error></error>
+
         <!-- LOGIN FORM -->
         <div class="row">
+                <error></error>
+            <div class="col-sm-12 top-space"></div>
             <div v-if="loginFormActive" class="login-form col-sm-offset-3 col-sm-6">
                 <form type="submit" @submit.prevent="login">
                     <div class="form-group">
@@ -72,12 +74,26 @@
 
 <style scoped>
     .toggle-link {
-        color: inherit;
+        color: #D66D40;
         text-decoration: none;
+        font-family: 'Roboto', sans-serif;
     }
 
     .toggle-link:hover {
-        color: #cccccc;
+        color: #F4F4E6;
         cursor: pointer;
+    }
+
+    .navbar-btn {
+        /* border-radius: 0; */
+        font-family: 'Roboto', sans-serif;
+
+    }
+    .top-space {
+        height: 55px;
+    }
+    
+    .input{
+background-color: #F4F4E6;
     }
 </style>

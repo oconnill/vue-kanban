@@ -4,13 +4,15 @@
       <h4>Hello, {{activeUser.name}}</h4>
       <button @click="logout" class="btn btn-default">Logout</button>
     </div>
-    <h1 class="main-title">KANBAN</h1>
+    <h1 class="main-title">KANBAN
+      <span class="period">.</span>
+    </h1>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  
+
   export default {
     name: 'app',
     mounted() {
@@ -31,11 +33,7 @@
 
 <style>
   body {
-    background: #334034;
-    /*
-    background: linear-gradient(rgba(51, 64, 52, 0.95), rgba(51, 64, 52, 0)), url("./assets/wood-texture.jpg") center no-repeat;
-    background-size: cover;
-    */
+    background: #283331;
     font-family: 'Open Sans', sans-serif;
   }
 
@@ -93,7 +91,12 @@
   h1,
   h2,
   h3 {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .period {
+    color: #D66D40;
+    font-size: 3em;
   }
 
   .logout-bar {
@@ -114,5 +117,6 @@
     font-size: 4em;
     font-weight: bold;
     letter-spacing: 0.2em;
+    color: #F4F4E6;
   }
 </style>
