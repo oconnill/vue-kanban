@@ -3,19 +3,19 @@ import vue from 'vue'
 import vuex from 'vuex'
 import router from 'router'
 
-var production = !window.location.host.includes('localhost');
-var baseUrl = production ? '//kanban-oconnell.herokuapp.com/' : '//localhost:3000/';
+let base = window.location.host.indexOf('localhost') > -1 ? '//localhost:3000/' : '/'
+
 let api = axios.create({
-  baseURL: baseUrl + 'api',
-  timeout: 2000,
-  withCredentials: true
-})
-let auth = axios.create({
-  baseURL: baseUrl,
+  baseURL: base + 'api/',
   timeout: 2000,
   withCredentials: true
 })
 
+let auth = axios.create({
+  baseURL: base,
+  timeout: 2000,
+  withCredentials: true
+})
 vue.use(vuex)
 
 var store = new vuex.Store({
